@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เปรียบเทียบความคุ้มสินค้า | ULTIMATE PRO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>เปรียบเทียบความคุ้มสินค้า | Mobile Optimized</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,7 +32,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 40px 20px;
+        /* ปรับ Padding ของ Body ให้เหมาะกับมือถือ */
+        padding: 20px 10px; 
         background-image: 
             radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
             radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
@@ -45,25 +46,30 @@
         background: rgba(30, 41, 59, 0.7);
         backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 40px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+        /* ปรับ Padding กล่องหลัก */
+        padding: 30px 20px; 
+        box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
     }
 
-    .header { text-align: center; margin-bottom: 30px; }
+    .header { text-align: center; margin-bottom: 25px; }
     .header h2 {
-        font-size: 28px; font-weight: 700;
+        font-size: 24px; /* ลดขนาดฟอนต์หัวข้อเล็กน้อย */
+        font-weight: 700;
         background: linear-gradient(to right, var(--primary), var(--secondary));
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .header p { color: var(--text-muted); font-size: 14px; margin-top: 5px; }
+    .header p { color: var(--text-muted); font-size: 13px; margin-top: 5px; }
 
     .setup-section {
-        display: flex; gap: 15px; margin-bottom: 30px;
-        background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px;
+        display: flex; gap: 10px; margin-bottom: 25px;
+        background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px;
+        /* เรียงต่อกันเป็นแนวตั้งเมื่อจอมือถือเล็ก */
+        flex-direction: column; 
     }
 
     .input-group { position: relative; width: 100%; display: flex; align-items: center; margin-bottom: 12px;}
+    .item-card .input-group:last-child { margin-bottom: 0; }
     
     .input-group i.icon-left {
         position: absolute; left: 15px; color: var(--text-muted); z-index: 2;
@@ -74,30 +80,30 @@
         background: rgba(15, 23, 42, 0.6);
         border: 1px solid rgba(255,255,255,0.1);
         color: white;
-        padding: 12px 15px 12px 45px;
+        padding: 12px 12px 12px 42px; /* ปรับ padding ให้สมดุล */
         border-radius: 12px;
         font-size: 15px;
         outline: none;
         transition: all 0.3s ease;
     }
 
-    select { padding-left: 15px; width: 40%; border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; cursor: pointer; }
-    input.with-select { border-top-right-radius: 0; border-bottom-right-radius: 0; width: 60%; }
+    select { padding-left: 10px; width: 35%; border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; cursor: pointer; text-align: center; }
+    input.with-select { border-top-right-radius: 0; border-bottom-right-radius: 0; width: 65%; }
     
     input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
     button {
-        cursor: pointer; border: none; padding: 12px 24px; border-radius: 12px;
+        cursor: pointer; border: none; padding: 12px 20px; border-radius: 12px;
         font-weight: 600; font-size: 16px; color: white; transition: all 0.3s;
-        display: flex; align-items: center; justify-content: center; gap: 8px;
+        display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
     }
 
-    .btn-create { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); flex: 1; }
+    .btn-create { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
     .btn-create:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
 
     .btn-scan {
         background: var(--secondary); padding: 0 15px; height: 100%; position: absolute; right: 0;
-        border-top-left-radius: 0; border-bottom-left-radius: 0;
+        border-top-left-radius: 0; border-bottom-left-radius: 0; width: auto;
     }
     .btn-scan:hover { background: #7c3aed; }
 
@@ -107,36 +113,50 @@
     }
     .btn-calc:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 8px 25px var(--primary-glow); }
 
-    #inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    /* ปรับ Grid ให้เป็น 1 คอลัมน์สำหรับมือถือเสมอ */
+    #inputs { display: grid; grid-template-columns: 1fr; gap: 15px; }
+
+    @media (min-width: 600px) {
+        /* ถ้าเป็นจอคอม/แท็บเล็ต ให้กลับไปใช้หลายคอลัมน์ได้ */
+        #inputs { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .setup-section { flex-direction: row; }
+        .btn-create { width: auto; flex: 1; }
+    }
 
     .item-card {
         background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px; padding: 20px; animation: scaleIn 0.4s forwards;
+        border-radius: 16px; padding: 15px; animation: scaleIn 0.4s forwards;
     }
 
     @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-    .item-card h3 { font-size: 16px; color: var(--primary); margin-bottom: 15px; }
+    .item-card h3 { font-size: 16px; color: var(--primary); margin-bottom: 12px; }
 
     /* Scanner Modal */
     #scanner-modal {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; flex-direction: column;
+        background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; flex-direction: column; padding: 20px;
     }
     #reader { width: 100%; max-width: 400px; background: white; border-radius: 16px; overflow: hidden; }
-    .close-scanner { margin-top: 20px; background: var(--danger); }
+    .close-scanner { margin-top: 20px; background: var(--danger); width: auto; padding: 12px 30px; }
 
     /* Results */
-    .result-container { margin-top: 30px; }
+    .result-container { margin-top: 25px; }
     .result-item {
-        background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 15px; margin-bottom: 15px;
-        display: flex; flex-direction: column; gap: 10px; border: 1px solid rgba(255,255,255,0.05);
+        background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 15px; margin-bottom: 12px;
+        display: flex; flex-direction: column; gap: 8px; border: 1px solid rgba(255,255,255,0.05);
         animation: fadeIn 0.5s ease forwards;
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .result-header { display: flex; justify-content: space-between; align-items: center; font-weight: 500; }
-    .best-badge { background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 4px 10px; border-radius: 20px; font-size: 12px; }
-    .progress-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+    
+    /* ปรับ Header ผลลัพธ์ให้ไม่ซ้อนกันเวลามือถือจอแคบ */
+    .result-header { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; font-weight: 500; }
+    @media (min-width: 480px) {
+        .result-header { flex-direction: row; justify-content: space-between; align-items: center; gap: 0; }
+    }
+    
+    .best-badge { background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 4px 10px; border-radius: 20px; font-size: 12px; display: inline-block;}
+    .progress-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 4px;}
     .progress-bar { height: 100%; border-radius: 10px; transition: width 1s; }
     .progress-success { background: var(--success); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
     .progress-danger { background: var(--danger); box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
@@ -153,9 +173,9 @@
     </div>
 
     <div class="setup-section">
-        <div class="input-group" style="margin: 0; flex: 2;">
+        <div class="input-group" style="margin: 0; width: 100%;">
             <i class="fa-solid fa-boxes-stacked icon-left"></i>
-            <input type="number" id="count" placeholder="จำนวนสินค้า (เช่น 2, 3)" min="2">
+            <input type="number" id="count" placeholder="จำนวนสินค้า (เช่น 2, 3)" min="2" style="width: 100%;">
         </div>
         <button class="btn-create" onclick="createInputs()">
             <i class="fa-solid fa-wand-magic-sparkles"></i> สร้างช่อง
@@ -172,7 +192,7 @@
 </div>
 
 <div id="scanner-modal">
-    <h3 style="color: white; margin-bottom: 20px;">สแกนบาร์โค้ดสินค้า</h3>
+    <h3 style="color: white; margin-bottom: 20px; text-align: center;">สแกนบาร์โค้ดสินค้า</h3>
     <div id="reader"></div>
     <button class="close-scanner" onclick="stopScanner()">ปิดกล้อง</button>
 </div>
@@ -181,7 +201,6 @@
 let html5QrcodeScanner = null;
 let currentScanTarget = null;
 
-// สร้างระบบเสียงแจ้งเตือน (Web Audio API)
 function playSuccessSound() {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
@@ -193,8 +212,8 @@ function playSuccessSound() {
     gain.connect(ctx.destination);
     
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(880, ctx.currentTime); // โน้ต A5 เสียงใสๆ
-    osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.1); // ดันเสียงขึ้นให้ดูตื่นเต้น
+    osc.frequency.setValueAtTime(880, ctx.currentTime); 
+    osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.1); 
     
     gain.gain.setValueAtTime(0.1, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.3);
@@ -241,9 +260,9 @@ function createInputs() {
                 <select id="unit${i}">
                     <option value="1">กรัม (g)</option>
                     <option value="1">มล. (ml)</option>
-                    <option value="1000">กิโลกรัม (kg)</option>
+                    <option value="1000">กิโล (kg)</option>
                     <option value="1000">ลิตร (L)</option>
-                    <option value="1">ชิ้น / ห่อ</option>
+                    <option value="1">ชิ้น</option>
                 </select>
             </div>
         </div>
@@ -254,7 +273,6 @@ function createInputs() {
     calcBtn.style.animation = "fadeIn 0.5s ease forwards";
 }
 
-// ฟังก์ชันเปิดกล้องสแกน
 function startScanner(index) {
     currentScanTarget = index;
     document.getElementById('scanner-modal').style.display = 'flex';
@@ -264,13 +282,12 @@ function startScanner(index) {
 }
 
 function onScanSuccess(decodedText, decodedResult) {
-    // เมื่อสแกนติด เอาเลขบาร์โค้ดไปใส่ในช่องชื่อสินค้า
     document.getElementById(`name${currentScanTarget}`).value = `บาร์โค้ด: ${decodedText}`;
     stopScanner();
-    playSuccessSound(); // เสียงติ๊ดเมื่อสแกนติด
+    playSuccessSound(); 
 }
 
-function onScanFailure(error) { /* ไม่ต้องทำอะไร ปล่อยกล้องหาสแกนต่อไป */ }
+function onScanFailure(error) { }
 
 function stopScanner() {
     if (html5QrcodeScanner) {
@@ -295,7 +312,6 @@ function calculate() {
             isValid = false;
         }
         
-        // คำนวณปริมาณฐาน (เช่น ถ้าเลือก kg ก็จะคูณ 1000 ให้เป็นกรัม เพื่อให้เปรียบเทียบกันได้)
         let totalBaseAmount = amountInput * unitMultiplier;
         let pricePerBaseUnit = price / totalBaseAmount;
         
@@ -308,17 +324,15 @@ function calculate() {
         return;
     }
     
-    playSuccessSound(); // เล่นเสียงตอนกดคำนวณสำเร็จ
+    playSuccessSound(); 
 
     let minPrice = Math.min(...unitPrices);
     let resultHTML = "<div style='margin-bottom:15px; font-weight:600; color:var(--text-muted);'>🏆 สรุปผลความคุ้มค่า:</div>";
     
-    // คำนวณเปอร์เซ็นต์
     results.forEach(item => {
         item.percent = ((item.unitPrice - minPrice) / minPrice) * 100;
     });
 
-    // เรียงจากคุ้มสุด
     results.sort((a, b) => a.percent - b.percent);
 
     results.forEach((item) => {
@@ -329,7 +343,7 @@ function calculate() {
                     <span style="color: white; font-size: 16px;"><i class="fa-solid fa-crown" style="color: #fbbf24;"></i> ${item.name}</span>
                     <span class="best-badge">คุ้มค่าที่สุด!</span>
                 </div>
-                <div style="font-size: 13px; color: var(--text-muted);">ราคาต่อหน่วยฐาน: ฿${item.unitPrice.toFixed(4)}</div>
+                <div style="font-size: 13px; color: var(--text-muted);">ราคาต่อหน่วย: ฿${item.unitPrice.toFixed(4)}</div>
                 <div class="progress-bg"><div class="progress-bar progress-success" style="width: 100%;"></div></div>
             </div>`;
         } else {
@@ -340,7 +354,7 @@ function calculate() {
                     <span>${item.name}</span>
                     <span style="color: var(--danger); font-size: 14px;">แพงกว่า ${item.percent.toFixed(2)}%</span>
                 </div>
-                <div style="font-size: 13px; color: var(--text-muted);">ราคาต่อหน่วยฐาน: ฿${item.unitPrice.toFixed(4)}</div>
+                <div style="font-size: 13px; color: var(--text-muted);">ราคาต่อหน่วย: ฿${item.unitPrice.toFixed(4)}</div>
                 <div class="progress-bg"><div class="progress-bar progress-danger" style="width: ${barWidth}%;"></div></div>
             </div>`;
         }
