@@ -3,250 +3,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เปรียบเทียบความคุ้มสินค้า 🛍️✨</title>
+<title>เปรียบเทียบความคุ้มสินค้า | ULTIMATE PRO</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://unpkg.com/html5-qrcode"></script>
 
 <style>
-    /* รีเซ็ตค่าเริ่มต้นและตั้งค่าฟอนต์ */
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+    :root {
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --primary: #0ea5e9;
+        --primary-glow: rgba(14, 165, 233, 0.5);
+        --secondary: #8b5cf6;
+        --success: #10b981;
+        --danger: #ef4444;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Prompt', sans-serif; }
 
     body {
-        font-family: 'Kanit', sans-serif;
-        /* พื้นหลัง Gradient แบบขยับได้ (Animated Gradient) */
-        background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
+        background-color: var(--bg-color);
+        color: var(--text-main);
         min-height: 100vh;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        padding: 20px;
-        color: #333;
+        padding: 40px 20px;
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+        background-attachment: fixed;
     }
 
-    /* อนิเมชันพื้นหลัง */
-    @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* สไตล์กล่องหลักแบบ Glassmorphism (กระจกฝ้า) */
-    .container {
-        background: rgba(255, 255, 255, 0.45);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        padding: 40px 30px;
+    .app-container {
+        width: 100%;
+        max-width: 900px;
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .header { text-align: center; margin-bottom: 30px; }
+    .header h2 {
+        font-size: 28px; font-weight: 700;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header p { color: var(--text-muted); font-size: 14px; margin-top: 5px; }
+
+    .setup-section {
+        display: flex; gap: 15px; margin-bottom: 30px;
+        background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px;
+    }
+
+    .input-group { position: relative; width: 100%; display: flex; align-items: center; margin-bottom: 12px;}
+    
+    .input-group i.icon-left {
+        position: absolute; left: 15px; color: var(--text-muted); z-index: 2;
+    }
+
+    input, select {
         width: 100%;
-        max-width: 400px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-
-    .container:hover {
-        box-shadow: 0 20px 45px rgba(0,0,0,0.15);
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #2c3e50;
-        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-    }
-
-    /* ตกแต่ง Label และช่องกรอกข้อมูล */
-    .input-label {
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 5px;
-        display: block;
-        color: #444;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px 15px;
-        margin-bottom: 15px;
-        background: rgba(255, 255, 255, 0.6);
-        border: 2px solid transparent;
-        border-radius: 12px;
-        font-family: 'Kanit', sans-serif;
-        font-size: 16px;
-        outline: none;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
-    }
-
-    /* ลูกเล่นตอนคลิกที่ช่องกรอก */
-    input:focus {
-        background: rgba(255, 255, 255, 0.9);
-        border-color: #a1c4fd;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(161, 196, 253, 0.4);
-    }
-
-    /* ตกแต่งปุ่มให้ดูน่ากด */
-    button {
-        width: 100%;
-        padding: 14px;
-        margin-top: 10px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255,255,255,0.1);
         color: white;
-        border: none;
-        border-radius: 14px;
-        font-size: 16px;
-        font-weight: 600;
-        font-family: 'Kanit', sans-serif;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
-    }
-
-    button:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-    }
-
-    button:active {
-        transform: translateY(1px);
-    }
-
-    /* ตกแต่งปุ่มคำนวณให้สีต่างกัน */
-    .btn-calc {
-        background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
-        box-shadow: 0 4px 15px rgba(255, 8, 68, 0.3);
-        margin-top: 20px;
-    }
-
-    .btn-calc:hover {
-        background: linear-gradient(135deg, #ffb199 0%, #ff0844 100%);
-        box-shadow: 0 8px 25px rgba(255, 8, 68, 0.4);
-    }
-
-    /* อนิเมชันเด้งเข้ามาของกล่องสินค้า (Slide In) */
-    .item-card {
-        background: rgba(255, 255, 255, 0.5);
-        padding: 15px;
+        padding: 12px 15px 12px 45px;
         border-radius: 12px;
-        margin-bottom: 15px;
-        animation: slideUp 0.4s ease forwards;
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    @keyframes slideUp {
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .item-card h3 {
-        font-size: 16px;
-        margin-bottom: 10px;
-        color: #555;
-    }
-
-    /* ตกแต่งกล่องผลลัพธ์ */
-    .result {
-        margin-top: 25px;
-        text-align: center;
-        font-size: 16px;
-    }
-
-    .result-item {
-        background: rgba(255, 255, 255, 0.7);
-        padding: 10px;
-        margin-bottom: 8px;
-        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
         transition: all 0.3s ease;
     }
 
-    .best-value {
-        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-        font-weight: 600;
-        color: #0c542a;
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(132, 250, 176, 0.4);
+    select { padding-left: 15px; width: 40%; border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; cursor: pointer; }
+    input.with-select { border-top-right-radius: 0; border-bottom-right-radius: 0; width: 60%; }
+    
+    input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+
+    button {
+        cursor: pointer; border: none; padding: 12px 24px; border-radius: 12px;
+        font-weight: 600; font-size: 16px; color: white; transition: all 0.3s;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
     }
+
+    .btn-create { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); flex: 1; }
+    .btn-create:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+
+    .btn-scan {
+        background: var(--secondary); padding: 0 15px; height: 100%; position: absolute; right: 0;
+        border-top-left-radius: 0; border-bottom-left-radius: 0;
+    }
+    .btn-scan:hover { background: #7c3aed; }
+
+    .btn-calc {
+        width: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary));
+        padding: 16px; font-size: 18px; margin-top: 20px; display: none;
+    }
+    .btn-calc:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 8px 25px var(--primary-glow); }
+
+    #inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+
+    .item-card {
+        background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px; padding: 20px; animation: scaleIn 0.4s forwards;
+    }
+
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+    .item-card h3 { font-size: 16px; color: var(--primary); margin-bottom: 15px; }
+
+    /* Scanner Modal */
+    #scanner-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; flex-direction: column;
+    }
+    #reader { width: 100%; max-width: 400px; background: white; border-radius: 16px; overflow: hidden; }
+    .close-scanner { margin-top: 20px; background: var(--danger); }
+
+    /* Results */
+    .result-container { margin-top: 30px; }
+    .result-item {
+        background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 15px; margin-bottom: 15px;
+        display: flex; flex-direction: column; gap: 10px; border: 1px solid rgba(255,255,255,0.05);
+        animation: fadeIn 0.5s ease forwards;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .result-header { display: flex; justify-content: space-between; align-items: center; font-weight: 500; }
+    .best-badge { background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+    .progress-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+    .progress-bar { height: 100%; border-radius: 10px; transition: width 1s; }
+    .progress-success { background: var(--success); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+    .progress-danger { background: var(--danger); box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
 
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app-container">
+    <div class="header">
+        <h2><i class="fa-solid fa-scale-balanced"></i> เปรียบเทียบความคุ้มค่า</h2>
+        <p>สแกนบาร์โค้ด • คำนวณข้ามหน่วย • รู้ผลทันที</p>
+    </div>
 
-<h2>🛒 เทียบความคุ้ม!</h2>
+    <div class="setup-section">
+        <div class="input-group" style="margin: 0; flex: 2;">
+            <i class="fa-solid fa-boxes-stacked icon-left"></i>
+            <input type="number" id="count" placeholder="จำนวนสินค้า (เช่น 2, 3)" min="2">
+        </div>
+        <button class="btn-create" onclick="createInputs()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> สร้างช่อง
+        </button>
+    </div>
 
-<span class="input-label">จำนวนสินค้าที่จะเปรียบเทียบ</span>
-<input type="number" id="count" placeholder="เช่น 2, 3, 4...">
+    <div id="inputs"></div>
 
-<button onclick="createInputs()">✨ สร้างช่องกรอก</button>
+    <button id="calcBtn" class="btn-calc" onclick="calculate()">
+        <i class="fa-solid fa-calculator"></i> คำนวณความคุ้มค่า
+    </button>
 
-<div id="inputs" style="margin-top: 20px;"></div>
+    <div id="result" class="result-container"></div>
+</div>
 
-<button class="btn-calc" onclick="calculate()">🚀 คำนวณความคุ้มค่า</button>
-
-<div id="result" class="result"></div>
-
+<div id="scanner-modal">
+    <h3 style="color: white; margin-bottom: 20px;">สแกนบาร์โค้ดสินค้า</h3>
+    <div id="reader"></div>
+    <button class="close-scanner" onclick="stopScanner()">ปิดกล้อง</button>
 </div>
 
 <script>
+let html5QrcodeScanner = null;
+let currentScanTarget = null;
 
-function createInputs(){
+// สร้างระบบเสียงแจ้งเตือน (Web Audio API)
+function playSuccessSound() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime); // โน้ต A5 เสียงใสๆ
+    osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.1); // ดันเสียงขึ้นให้ดูตื่นเต้น
+    
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.3);
+    
+    osc.start();
+    osc.stop(ctx.currentTime + 0.3);
+}
+
+function createInputs() {
     let count = document.getElementById("count").value;
     let area = document.getElementById("inputs");
+    let calcBtn = document.getElementById("calcBtn");
+    let resultArea = document.getElementById("result");
     
-    area.innerHTML="";
+    if(!count || count < 2) {
+        alert("กรุณากรอกจำนวนสินค้าอย่างน้อย 2 ชิ้นครับ");
+        return;
+    }
+
+    area.innerHTML = "";
+    resultArea.innerHTML = "";
     
-    for(let i=1; i<=count; i++){
-        // เพิ่มคลาสและจัดเรียง HTML ใหม่ให้ดูสวยงามขึ้น แต่ใช้ ID และโครงสร้างการรับค่าแบบเดิม
+    for(let i = 1; i <= count; i++) {
         area.innerHTML += `
-        <div class="item-card" style="animation-delay: ${i * 0.1}s">
-            <h3>📦 สินค้าชิ้นที่ ${i}</h3>
-            <input type="number" id="price${i}" placeholder="ราคา (บาท)">
-            <input type="number" id="amount${i}" placeholder="ปริมาณ (หน่วย)">
+        <div class="item-card" style="animation-delay: ${i * 0.05}s">
+            <h3><i class="fa-solid fa-box"></i> สินค้าที่ ${i}</h3>
+            
+            <div class="input-group">
+                <i class="fa-solid fa-font icon-left"></i>
+                <input type="text" id="name${i}" placeholder="ชื่อแบรนด์/รุ่น (ถ้ามี)">
+                <button class="btn-scan" onclick="startScanner(${i})" title="สแกนบาร์โค้ด">
+                    <i class="fa-solid fa-barcode"></i>
+                </button>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-tag icon-left"></i>
+                <input type="number" id="price${i}" placeholder="ราคา (บาท)">
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-weight-scale icon-left"></i>
+                <input type="number" id="amount${i}" class="with-select" placeholder="ปริมาณ">
+                <select id="unit${i}">
+                    <option value="1">กรัม (g)</option>
+                    <option value="1">มล. (ml)</option>
+                    <option value="1000">กิโลกรัม (kg)</option>
+                    <option value="1000">ลิตร (L)</option>
+                    <option value="1">ชิ้น / ห่อ</option>
+                </select>
+            </div>
         </div>
         `;
     }
+    
+    calcBtn.style.display = "flex";
+    calcBtn.style.animation = "fadeIn 0.5s ease forwards";
 }
 
-function calculate(){
+// ฟังก์ชันเปิดกล้องสแกน
+function startScanner(index) {
+    currentScanTarget = index;
+    document.getElementById('scanner-modal').style.display = 'flex';
+    
+    html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 150} }, false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+}
+
+function onScanSuccess(decodedText, decodedResult) {
+    // เมื่อสแกนติด เอาเลขบาร์โค้ดไปใส่ในช่องชื่อสินค้า
+    document.getElementById(`name${currentScanTarget}`).value = `บาร์โค้ด: ${decodedText}`;
+    stopScanner();
+    playSuccessSound(); // เสียงติ๊ดเมื่อสแกนติด
+}
+
+function onScanFailure(error) { /* ไม่ต้องทำอะไร ปล่อยกล้องหาสแกนต่อไป */ }
+
+function stopScanner() {
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear();
+    }
+    document.getElementById('scanner-modal').style.display = 'none';
+}
+
+function calculate() {
     let count = document.getElementById("count").value;
-    let unit = [];
+    let unitPrices = [];
+    let isValid = true;
+    let results = [];
     
-    for(let i=1; i<=count; i++){
-        let price = document.getElementById("price"+i).value;
-        let amount = document.getElementById("amount"+i).value;
-        unit[i] = price/amount;
-    }
-    
-    let min = Math.min(...unit.slice(1));
-    let text="";
-    
-    for(let i=1; i<=count; i++){
-        let percent = ((unit[i]-min)/min)*100;
+    for(let i = 1; i <= count; i++) {
+        let name = document.getElementById("name"+i).value || `สินค้า ${i}`;
+        let price = parseFloat(document.getElementById("price"+i).value);
+        let amountInput = parseFloat(document.getElementById("amount"+i).value);
+        let unitMultiplier = parseFloat(document.getElementById("unit"+i).value);
         
-        // เพิ่มเงื่อนไขเพื่อไฮไลต์ตัวที่คุ้มที่สุด (0%) ให้โดดเด่น
-        if(percent === 0) {
-            text += `<div class="result-item best-value">👑 สินค้า ${i} : คุ้มที่สุด! (0%)</div>`;
-        } else {
-            text += `<div class="result-item">แพงกว่า สินค้า ${i} : ${percent.toFixed(2)} %</div>`;
+        if(isNaN(price) || isNaN(amountInput) || amountInput === 0) {
+            isValid = false;
         }
+        
+        // คำนวณปริมาณฐาน (เช่น ถ้าเลือก kg ก็จะคูณ 1000 ให้เป็นกรัม เพื่อให้เปรียบเทียบกันได้)
+        let totalBaseAmount = amountInput * unitMultiplier;
+        let pricePerBaseUnit = price / totalBaseAmount;
+        
+        unitPrices.push(pricePerBaseUnit);
+        results.push({ id: i, name: name, unitPrice: pricePerBaseUnit });
+    }
+
+    if(!isValid) {
+        alert("กรุณากรอกราคาและปริมาณให้ครบทุกช่อง และปริมาณห้ามเป็น 0 ครับ");
+        return;
     }
     
-    document.getElementById("result").innerHTML = text;
-}
+    playSuccessSound(); // เล่นเสียงตอนกดคำนวณสำเร็จ
 
+    let minPrice = Math.min(...unitPrices);
+    let resultHTML = "<div style='margin-bottom:15px; font-weight:600; color:var(--text-muted);'>🏆 สรุปผลความคุ้มค่า:</div>";
+    
+    // คำนวณเปอร์เซ็นต์
+    results.forEach(item => {
+        item.percent = ((item.unitPrice - minPrice) / minPrice) * 100;
+    });
+
+    // เรียงจากคุ้มสุด
+    results.sort((a, b) => a.percent - b.percent);
+
+    results.forEach((item) => {
+        if(item.percent === 0) {
+            resultHTML += `
+            <div class="result-item" style="border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);">
+                <div class="result-header">
+                    <span style="color: white; font-size: 16px;"><i class="fa-solid fa-crown" style="color: #fbbf24;"></i> ${item.name}</span>
+                    <span class="best-badge">คุ้มค่าที่สุด!</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">ราคาต่อหน่วยฐาน: ฿${item.unitPrice.toFixed(4)}</div>
+                <div class="progress-bg"><div class="progress-bar progress-success" style="width: 100%;"></div></div>
+            </div>`;
+        } else {
+            let barWidth = Math.min(item.percent, 100); 
+            resultHTML += `
+            <div class="result-item">
+                <div class="result-header">
+                    <span>${item.name}</span>
+                    <span style="color: var(--danger); font-size: 14px;">แพงกว่า ${item.percent.toFixed(2)}%</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">ราคาต่อหน่วยฐาน: ฿${item.unitPrice.toFixed(4)}</div>
+                <div class="progress-bg"><div class="progress-bar progress-danger" style="width: ${barWidth}%;"></div></div>
+            </div>`;
+        }
+    });
+    
+    document.getElementById("result").innerHTML = resultHTML;
+    document.getElementById("result").scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
 </script>
 
 </body>
-
 </html>
