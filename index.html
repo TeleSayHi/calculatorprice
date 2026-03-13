@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เปรียบเทียบความคุ้มสินค้า 🛍️✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+    /* รีเซ็ตค่าเริ่มต้นและตั้งค่าฟอนต์ */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Kanit', sans-serif;
+        /* พื้นหลัง Gradient แบบขยับได้ (Animated Gradient) */
+        background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        color: #333;
+    }
+
+    /* อนิเมชันพื้นหลัง */
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* สไตล์กล่องหลักแบบ Glassmorphism (กระจกฝ้า) */
+    .container {
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        padding: 40px 30px;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .container:hover {
+        box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    /* ตกแต่ง Label และช่องกรอกข้อมูล */
+    .input-label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+        color: #444;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 2px solid transparent;
+        border-radius: 12px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 16px;
+        outline: none;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    /* ลูกเล่นตอนคลิกที่ช่องกรอก */
+    input:focus {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: #a1c4fd;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(161, 196, 253, 0.4);
+    }
+
+    /* ตกแต่งปุ่มให้ดูน่ากด */
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Kanit', sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+    }
+
+    button:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    button:active {
+        transform: translateY(1px);
+    }
+
+    /* ตกแต่งปุ่มคำนวณให้สีต่างกัน */
+    .btn-calc {
+        background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
+        box-shadow: 0 4px 15px rgba(255, 8, 68, 0.3);
+        margin-top: 20px;
+    }
+
+    .btn-calc:hover {
+        background: linear-gradient(135deg, #ffb199 0%, #ff0844 100%);
+        box-shadow: 0 8px 25px rgba(255, 8, 68, 0.4);
+    }
+
+    /* อนิเมชันเด้งเข้ามาของกล่องสินค้า (Slide In) */
+    .item-card {
+        background: rgba(255, 255, 255, 0.5);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        animation: slideUp 0.4s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    @keyframes slideUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .item-card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    /* ตกแต่งกล่องผลลัพธ์ */
+    .result {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .result-item {
+        background: rgba(255, 255, 255, 0.7);
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .best-value {
+        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        font-weight: 600;
+        color: #0c542a;
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(132, 250, 176, 0.4);
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🛒 เทียบความคุ้ม!</h2>
+
+<span class="input-label">จำนวนสินค้าที่จะเปรียบเทียบ</span>
+<input type="number" id="count" placeholder="เช่น 2, 3, 4...">
+
+<button onclick="createInputs()">✨ สร้างช่องกรอก</button>
+
+<div id="inputs" style="margin-top: 20px;"></div>
+
+<button class="btn-calc" onclick="calculate()">🚀 คำนวณความคุ้มค่า</button>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+
+function createInputs(){
+    let count = document.getElementById("count").value;
+    let area = document.getElementById("inputs");
+    
+    area.innerHTML="";
+    
+    for(let i=1; i<=count; i++){
+        // เพิ่มคลาสและจัดเรียง HTML ใหม่ให้ดูสวยงามขึ้น แต่ใช้ ID และโครงสร้างการรับค่าแบบเดิม
+        area.innerHTML += `
+        <div class="item-card" style="animation-delay: ${i * 0.1}s">
+            <h3>📦 สินค้าชิ้นที่ ${i}</h3>
+            <input type="number" id="price${i}" placeholder="ราคา (บาท)">
+            <input type="number" id="amount${i}" placeholder="ปริมาณ (หน่วย)">
+        </div>
+        `;
+    }
+}
+
+function calculate(){
+    let count = document.getElementById("count").value;
+    let unit = [];
+    
+    for(let i=1; i<=count; i++){
+        let price = document.getElementById("price"+i).value;
+        let amount = document.getElementById("amount"+i).value;
+        unit[i] = price/amount;
+    }
+    
+    let min = Math.min(...unit.slice(1));
+    let text="";
+    
+    for(let i=1; i<=count; i++){
+        let percent = ((unit[i]-min)/min)*100;
+        
+        // เพิ่มเงื่อนไขเพื่อไฮไลต์ตัวที่คุ้มที่สุด (0%) ให้โดดเด่น
+        if(percent === 0) {
+            text += `<div class="result-item best-value">👑 สินค้า ${i} : คุ้มที่สุด! (0%)</div>`;
+        } else {
+            text += `<div class="result-item">แพงกว่า สินค้า ${i} : ${percent.toFixed(2)} %</div>`;
+        }
+    }
+    
+    document.getElementById("result").innerHTML = text;
+}
+
+</script>
+
+</body>
+</html>
